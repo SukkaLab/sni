@@ -29,6 +29,7 @@
                             <small>该图片文件需可以通过 HTTP 访问</small>
                         </div>
                         <button class="btn btn-primary sk-mt-6" onclick="data()">开始扫描</button>
+                        <button class="btn btn-primary sk-mt-6" onclick="output()">输出结果</button>
                     </div>
                     <div class="card-footer">
                         <p id="output" class="sk-mb-0"></p>
@@ -48,11 +49,11 @@
         function scan(ip, file) {
             for (var idx = 0; idx < 256; idx++) {
                 var el = document.createElement('img');
-                el.src = '//' + ip + '.' + idx + '/' + file;
+                el.src = 'http://' + ip + '.' + idx + '/' + file;
                 el.setAttribute('ip', ip + '.' + idx);
                 el.onload = function () {
                     window.success.push(this.getAttribute('ip'))
-                    document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右</span><span class="text-success">' + window.success.length + '个</span>'
+                    document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右，</span><span class="text-success">已经找到 ' + window.success.length + ' 个</span>'
                 };
             }
         }
