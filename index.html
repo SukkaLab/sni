@@ -39,7 +39,7 @@
     </div>
     <script>
         /*!
-         * SNI Proxy Scanner Tool for /24 (Dev Tools Console Version)
+         * SNI Proxy Scanner Tool for /24 (Web Version)
          * Author: SukkaW
          * Link:
          * Usage: ip 的格式为 1.1.1 即省略最后一位和点，执行 test('ip'); 就行
@@ -48,11 +48,10 @@
         var emptyArr = [];
         function scan(ip, file) {
             for (var idx = 0; idx < 256; idx++) {
-                /* var el = document.createElement('img');
+                var el = document.createElement('img');
                 el.src = '//' + ip + '.' + idx + '/' + file;
                 el.setAttribute('ip', ip + '.' + idx);
-                el.onload = function () { window.success.push(this.getAttribute('ip')) }; */
-                console.log('//' + ip + '.' + idx + '/' + file)
+                el.onload = function () { window.success.push(this.getAttribute('ip')) };
             }
             output();
         }
