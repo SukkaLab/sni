@@ -41,8 +41,7 @@
         /*!
          * SNI Proxy Scanner Tool for /24 (Web Version)
          * Author: SukkaW
-         * Link:
-         * Usage: ip 的格式为 1.1.1 即省略最后一位和点，执行 test('ip'); 就行
+         * Link: https://lab.suka.moe/sni/
         */
         window.success = [];
         var emptyArr = [];
@@ -51,9 +50,11 @@
                 var el = document.createElement('img');
                 el.src = '//' + ip + '.' + idx + '/' + file;
                 el.setAttribute('ip', ip + '.' + idx);
-                el.onload = function () { window.success.push(this.getAttribute('ip')) };
+                el.onload = function () {
+                    window.success.push(this.getAttribute('ip'))
+                    document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右</span><span class="text-success">' + window.success.length + '个</span>'
+                };
             }
-            output();
         }
         function data() {
             const regexIP = /\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3}/;
@@ -69,7 +70,7 @@
             } else {
                 var file = url.replace(/http:\/\//i, '');
                 var ip = ip.replace('.0/24', '');
-                document.getElementById('output').innerHTML = '<span class="text-success">正在扫描，可能需要 10 分钟左右，请耐心等待、不要关闭窗口！</span>'
+                document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右</span>'
                 scan(ip, file);
             }
         }
