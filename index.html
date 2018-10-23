@@ -48,15 +48,29 @@
         var emptyArr = [];
         function scan(ip, file) {
             for (var idx = 0; idx < 256; idx++) {
-                var el = document.createElement('img');
-                el.src = 'http://' + ip + '.' + idx + '/' + file;
-                el.setAttribute('ip', ip + '.' + idx);
-                el.onload = function () {
-                    window.success.push(this.getAttribute('ip'))
-                    document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右，</span><span class="text-success">已经找到 ' + window.success.length + ' 个</span>'
-                };
+                checker(ip, idx)
             }
         }
+
+        function checker(ip, idx) {
+            var img = new Image;
+            var timeout = setTimeout(() => {
+                img.onerror = img.onload = null;
+            }, 3000);
+            
+            img.onerror = () => {
+                clearTimeout(timeout);
+            }
+
+            img.onload = () => {
+                clearTimeout(timeout);
+                window.success.push(ip + '.' + idx)
+                document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右，</span><span class="text-success">已经找到 ' + window.success.length + ' 个</span>'
+            }
+            
+            img.src = 'http://' + ip + '.' + idx + '/' + file;
+        }
+
         function data() {
             const regexIP = /\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3}/;
             var ip = document.getElementById('ip').value;
