@@ -56,7 +56,8 @@
             var img = new Image;
             var timeout = setTimeout(() => {
                 img.onerror = img.onload = null;
-            }, 3000);
+                return;
+            }, 5000);
             
             img.onerror = () => {
                 clearTimeout(timeout);
@@ -67,7 +68,7 @@
                 window.success.push(ip + '.' + idx)
                 document.getElementById('output').innerHTML = '<span class="text-primary">正在扫描，可能需要 10 分钟左右，</span><span class="text-success">已经找到 ' + window.success.length + ' 个</span>'
             }
-            
+
             img.src = 'http://' + ip + '.' + idx + '/' + file;
         }
 
